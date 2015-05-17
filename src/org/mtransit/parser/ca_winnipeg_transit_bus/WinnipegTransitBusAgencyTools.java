@@ -334,6 +334,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				return;
 			}
 		} else if (mRoute.id == 49l) {
+			if (gTrip.direction_id == 0) {
+				mTrip.setHeadsignString(NORTH_TRANSCONA, gTrip.direction_id);
+				return;
+			} else if (gTrip.direction_id == 1) {
+				mTrip.setHeadsignString(DOWNTOWN, gTrip.direction_id);
+				return;
+			}
+		} else if (mRoute.id == 50l) {
 			if (gTrip.direction_id == 1) {
 				mTrip.setHeadsignString(DOWNTOWN, gTrip.direction_id);
 				return;
@@ -518,17 +526,11 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final Pattern UNIVERSITY_OF = Pattern.compile("(university of )", Pattern.CASE_INSENSITIVE);
 	private static final String UNIVERSITY_OF_REPLACEMENT = "U of ";
 
-	private static final Pattern STATION = Pattern.compile("(station)", Pattern.CASE_INSENSITIVE);
-	private static final String STATION_REPLACEMENT = "Stn";
-
-	private static final Pattern PLACE = Pattern.compile("(place)", Pattern.CASE_INSENSITIVE);
-	private static final String PLACE_REPLACEMENT = "Pl";
 
 	@Override
 	public String cleanTripHeadsign(String tripHeadsign) {
 		tripHeadsign = UNIVERSITY_OF.matcher(tripHeadsign).replaceAll(UNIVERSITY_OF_REPLACEMENT);
-		tripHeadsign = STATION.matcher(tripHeadsign).replaceAll(STATION_REPLACEMENT);
-		tripHeadsign = PLACE.matcher(tripHeadsign).replaceAll(PLACE_REPLACEMENT);
+		tripHeadsign = MSpec.cleanStreetTypes(tripHeadsign);
 		return MSpec.cleanLabel(tripHeadsign);
 	}
 
