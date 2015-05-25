@@ -72,7 +72,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	}
 
 	private static final String RLN_72 = "U of Manitoba - Richmond West";
-	private static final String RLN_76 = "U of Manitoba - St Vital Centre";
+	private static final String RLN_76 = "U of Manitoba - St Vital Ctr";
 
 	@Override
 	public String getRouteLongName(GRoute gRoute) {
