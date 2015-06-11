@@ -11,6 +11,7 @@ import org.mtransit.parser.gtfs.data.GCalendar;
 import org.mtransit.parser.gtfs.data.GCalendarDate;
 import org.mtransit.parser.gtfs.data.GRoute;
 import org.mtransit.parser.gtfs.data.GSpec;
+import org.mtransit.parser.gtfs.data.GStop;
 import org.mtransit.parser.gtfs.data.GTrip;
 import org.mtransit.parser.mt.data.MAgency;
 import org.mtransit.parser.mt.data.MRoute;
@@ -69,6 +70,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	@Override
 	public Integer getAgencyRouteType() {
 		return MAgency.ROUTE_TYPE_BUS;
+	}
+
+	@Override
+	public long getRouteId(GRoute gRoute) {
+		if (!Utils.isDigitsOnly(gRoute.route_id)) {
+			return Long.parseLong(gRoute.route_short_name); // use route short name as route ID
+		}
+		return super.getRouteId(gRoute);
 	}
 
 	private static final String RLN_72 = "U of Manitoba - Richmond West";
@@ -547,5 +556,13 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		gStopName = MSpec.cleanStreetTypes(gStopName);
 		gStopName = MSpec.cleanNumbers(gStopName);
 		return MSpec.cleanLabel(gStopName);
+	}
+
+	@Override
+	public int getStopId(GStop gStop) {
+		if (!Utils.isDigitsOnly(gStop.stop_id)) {
+			return Integer.parseInt(gStop.stop_code); // use stop code as stop ID
+		}
+		return super.getStopId(gStop);
 	}
 }
