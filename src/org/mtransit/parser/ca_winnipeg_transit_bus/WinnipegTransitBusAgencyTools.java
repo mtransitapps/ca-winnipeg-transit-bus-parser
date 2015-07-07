@@ -15,7 +15,7 @@ import org.mtransit.parser.gtfs.data.GStop;
 import org.mtransit.parser.gtfs.data.GTrip;
 import org.mtransit.parser.mt.data.MAgency;
 import org.mtransit.parser.mt.data.MRoute;
-import org.mtransit.parser.mt.data.MSpec;
+import org.mtransit.parser.CleanUtils;
 import org.mtransit.parser.mt.data.MTrip;
 
 // http://winnipegtransit.com/en/schedules-maps-tools/transittools/open-data/
@@ -36,11 +36,11 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
 	@Override
 	public void start(String[] args) {
-		System.out.printf("Generating Winnipeg Transit bus data...\n");
+		System.out.printf("\nGenerating Winnipeg Transit bus data...\n");
 		long start = System.currentTimeMillis();
 		this.serviceIds = extractUsefulServiceIds(args, this);
 		super.start(args);
-		System.out.printf("Generating Winnipeg Transit bus data... DONE in %s.\n", Utils.getPrettyDuration(System.currentTimeMillis() - start));
+		System.out.printf("\nGenerating Winnipeg Transit bus data... DONE in %s.\n", Utils.getPrettyDuration(System.currentTimeMillis() - start));
 	}
 
 	@Override
@@ -540,8 +540,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	@Override
 	public String cleanTripHeadsign(String tripHeadsign) {
 		tripHeadsign = UNIVERSITY_OF.matcher(tripHeadsign).replaceAll(UNIVERSITY_OF_REPLACEMENT);
-		tripHeadsign = MSpec.cleanStreetTypes(tripHeadsign);
-		return MSpec.cleanLabel(tripHeadsign);
+		tripHeadsign = CleanUtils.cleanStreetTypes(tripHeadsign);
+		return CleanUtils.cleanLabel(tripHeadsign);
 	}
 
 	private static final Pattern AT = Pattern.compile("( at )", Pattern.CASE_INSENSITIVE);
@@ -553,9 +553,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	public String cleanStopName(String gStopName) {
 		gStopName = START_WITH_BOUND.matcher(gStopName).replaceAll(StringUtils.EMPTY);
 		gStopName = AT.matcher(gStopName).replaceAll(AT_REPLACEMENT);
-		gStopName = MSpec.cleanStreetTypes(gStopName);
-		gStopName = MSpec.cleanNumbers(gStopName);
-		return MSpec.cleanLabel(gStopName);
+		gStopName = CleanUtils.cleanStreetTypes(gStopName);
+		gStopName = CleanUtils.cleanNumbers(gStopName);
+		return CleanUtils.cleanLabel(gStopName);
 	}
 
 	@Override
