@@ -339,6 +339,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				return;
 			}
 		} else if (mRoute.id == 47l) {
+			if (gTrip.getDirectionId() == 1) {
+				mTrip.setHeadsignString(DOWNTOWN, gTrip.getDirectionId());
 				return;
 			}
 		} else if (mRoute.id == 49l) {
