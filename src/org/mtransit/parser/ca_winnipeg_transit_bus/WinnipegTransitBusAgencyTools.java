@@ -398,6 +398,11 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				mTrip.setHeadsignString(PORTAGE, gTrip.getDirectionId());
 				return;
 			}
+		} else if (mRoute.id == 75l) {
+			if (gTrip.getDirectionId() == 1) {
+				mTrip.setHeadsignString(KILDONAN_PL, gTrip.getDirectionId());
+				return;
+			}
 		} else if (mRoute.id == 77l) {
 			if (gTrip.getDirectionId() == 0) {
 				mTrip.setHeadsignString(POLO_PARK, gTrip.getDirectionId());
