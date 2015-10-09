@@ -188,7 +188,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
 	@Override
 	public void setTripHeadsign(MRoute mRoute, MTrip mTrip, GTrip gTrip, GSpec gtfs) {
-		if (mRoute.id == 2l) {
+		if (mRoute.getId() == 2l) {
 			if (gTrip.getDirectionId() == 0) {
 				mTrip.setHeadsignString(COUNTER_CLOCKWISE, gTrip.getDirectionId());
 				return;
