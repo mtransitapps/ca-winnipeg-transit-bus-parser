@@ -130,12 +130,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		return super.getRouteColor(gRoute);
 	}
 
+	private static final String SLASH = " / ";
 	private static final String CLOCKWISE = "Clockwise";
 	private static final String COUNTER_CLOCKWISE = "Counter-Clockwise";
 	private static final String ST_BONIFACE = "St Boniface";
 	private static final String WOLSELEY = "Wolseley";
 	private static final String DOWNTOWN = "Downtown";
 	private static final String CITY_HALL = "City Hall";
+	private static final String WINDERMERE = "Windermere";
 	private static final String BROADWAY = "Broadway";
 	private static final String FERRY_RD = "Ferry Rd";
 	private static final String SELKIRK = "Selkirk";
@@ -152,13 +154,12 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final String PORTAGE_WEST = "Portage West";
 	private static final String INKSTER = "Inkster";
 	private static final String INKSTER_PARK = INKSTER + " Pk";
-	private static final String OMANDS_CREEK_INKSTER = "Omands Crk / " + INKSTER;
+	private static final String OMANDS_CREEK = "Omands Crk";
 	private static final String MAPLES = "Maples";
 	private static final String TEMPLETON = "Templeton";
 	private static final String THE_FORKS = "The Forks";
 	private static final String UNIVERSITY_OF_WINNIPEG = UNIVERSITY_OF_SHORT + "Winnipeg";
 	private static final String UNICITY = "Unicity";
-	private static final String UNICITY_POLO_PARK = UNICITY + " / " + POLO_PARK;
 	private static final String RENFREW = "Renfrew";
 	private static final String GROSVENOR_RENFREW = "Grosvenor & " + RENFREW;
 	private static final String WAL_MART = "WalMart";
@@ -176,12 +177,21 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final String RIVERVIEW = "Riverview";
 	private static final String PATERSON_LOOP = "Paterson Loop";
 	private static final String ST_VITAL_CTR = "St Vital Ctr";
-	private static final String MISERICORDIA_WINDERMERE = "Misericordia / Windermere";
-	private static final String UNIVERSITY_OF_MANITOBA_ST_NORBERT = UNIVERSITY_OF_MANITOBA + " / St Norbert";
 	private static final String TRANSCONA = "Transcona";
 	private static final String RICHMOND_WEST = "Richmond West";
 	private static final String WESTDALE = "Westdale";
 	private static final String BALMORAL_STA = "Balmoral Sta";
+	private static final String OAK_POINT = "Oak Pt";
+	private static final String MEADOWS_WEST = "Mdws West";
+	private static final String SOUTH_POINTE = "South Pte";
+	private static final String ALDGATE = "Aldgate";
+	private static final String ISLAND_LAKES = "Isl Lks";
+	private static final String ST_NORBERT = "St Norbert";
+	private static final String ST_AMANT = "St Amant";
+	private static final String NORTH_KILDONAN = "North Kildonan";
+	private static final String GLENWAY = "Glenway";
+	private static final String RIVERBEND = "Riverbend";
+	private static final String LEILA = "Leila";
 
 	private static final String TO = " to ";
 	private static final String VIA = " via ";
@@ -339,11 +349,24 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 28l) {
 			if (mTrip.getHeadsignId() == 0) {
-				mTrip.setHeadsignString(OMANDS_CREEK_INKSTER, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(OMANDS_CREEK + SLASH + INKSTER, mTrip.getHeadsignId());
+				return true;
+			}
+		} else if (mTrip.getRouteId() == 29l) {
+			if (mTrip.getHeadsignId() == 0) {
+				mTrip.setHeadsignString(CITY_HALL + SLASH + WINDERMERE, mTrip.getHeadsignId());
+				return true;
+			}
+		} else if (mTrip.getRouteId() == 31l) {
+			if (mTrip.getHeadsignId() == 0) {
+				mTrip.setHeadsignString(MEADOWS_WEST + SLASH + OAK_POINT, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 32l) {
-			if (mTrip.getHeadsignId() == 1) {
+			if (mTrip.getHeadsignId() == 0) {
+				mTrip.setHeadsignString(LEILA + SLASH + RIVERBEND, mTrip.getHeadsignId());
+				return true;
+			} else if (mTrip.getHeadsignId() == 1) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
 				return true;
 			}
@@ -366,6 +389,11 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				return true;
 			} else if (mTrip.getHeadsignId() == 1) {
 				mTrip.setHeadsignString(THE_FORKS, mTrip.getHeadsignId());
+				return true;
+			}
+		} else if (mTrip.getRouteId() == 41l) {
+			if (mTrip.getHeadsignId() == 0) {
+				mTrip.setHeadsignString(GLENWAY + SLASH + NORTH_KILDONAN, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 44l) {
@@ -413,6 +441,11 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				mTrip.setHeadsignString(UNIVERSITY_OF_WINNIPEG, mTrip.getHeadsignId());
 				return true;
 			}
+		} else if (mTrip.getRouteId() == 54l) {
+			if (mTrip.getHeadsignId() == 0) {
+				mTrip.setHeadsignString(SOUTH_ST_VITAL + SLASH + ST_AMANT, mTrip.getHeadsignId());
+				return true;
+			}
 		} else if (mTrip.getRouteId() == 55l) {
 			if (mTrip.getHeadsignId() == 0) {
 				mTrip.setHeadsignString(ST_VITAL_CTR, mTrip.getHeadsignId());
@@ -431,6 +464,11 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				mTrip.setHeadsignString(SOUTH_ST_VITAL, mTrip.getHeadsignId());
 				return true;
 			}
+		} else if (mTrip.getRouteId() == 59l) {
+			if (mTrip.getHeadsignId() == 0) {
+				mTrip.setHeadsignString(ALDGATE + SLASH + ISLAND_LAKES, mTrip.getHeadsignId());
+				return true;
+			}
 		} else if (mTrip.getRouteId() == 65l) {
 			if (mTrip.getHeadsignId() == 1) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -438,7 +476,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 66l) {
 			if (mTrip.getHeadsignId() == 0) {
-				mTrip.setHeadsignString(UNICITY_POLO_PARK, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(UNICITY + SLASH + POLO_PARK, mTrip.getHeadsignId());
 				return true;
 			} else if (mTrip.getHeadsignId() == 1) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -569,15 +607,20 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 99l) {
 			if (mTrip.getHeadsignId() == 0) {
-				mTrip.setHeadsignString(MISERICORDIA_WINDERMERE, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(MISERICORDIA + SLASH + WINDERMERE, mTrip.getHeadsignId());
 				return true;
 			} else if (mTrip.getHeadsignId() == 1) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
 				return true;
 			}
+		} else if (mTrip.getRouteId() == 137l) {
+			if (mTrip.getHeadsignId() == 0) {
+				mTrip.setHeadsignString(ST_NORBERT + SLASH + UNIVERSITY_OF_MANITOBA, mTrip.getHeadsignId());
+				return true;
+			}
 		} else if (mTrip.getRouteId() == 162l) {
 			if (mTrip.getHeadsignId() == 0) {
-				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA_ST_NORBERT, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + SLASH + ST_NORBERT, mTrip.getHeadsignId());
 				return true;
 			} else if (mTrip.getHeadsignId() == 1) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -601,8 +644,15 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
 				return true;
 			}
+		} else if (mTrip.getRouteId() == 183l) {
+			if (mTrip.getHeadsignId() == 0) {
+				mTrip.setHeadsignString(RICHMOND_WEST + SLASH + SOUTH_POINTE, mTrip.getHeadsignId());
+				return true;
+			}
 		}
-		return super.mergeHeadsign(mTrip, mTripToMerge);
+		System.out.printf("\nUnexpected trip to merge %s & %s.\n", mTrip, mTripToMerge);
+		System.exit(-1);
+		return false;
 	}
 
 	private static final Pattern POINT = Pattern.compile("((^|\\S){1}(\\.)(\\S|$){1})", Pattern.CASE_INSENSITIVE);
