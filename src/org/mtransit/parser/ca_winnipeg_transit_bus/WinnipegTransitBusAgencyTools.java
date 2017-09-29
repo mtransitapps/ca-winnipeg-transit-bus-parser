@@ -88,6 +88,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
 	private static final String RLN_72 = UNIVERSITY_OF_MANITOBA + " - Richmond West";
 	private static final String RLN_76 = UNIVERSITY_OF_MANITOBA + " - St Vital Ctr";
+	private static final String RLN_84 = "Whyte Rdg";
 	private static final String RLN_86 = "Whyte Rdg";
 
 	@Override
@@ -99,6 +100,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				return RLN_72;
 			case 76:
 				return RLN_76;
+			case 84:
+				return RLN_84;
 			case 86:
 				return RLN_86;
 			}
