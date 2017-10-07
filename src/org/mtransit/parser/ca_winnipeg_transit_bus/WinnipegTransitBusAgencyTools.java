@@ -141,10 +141,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	}
 
 	private static final String SLASH = " / ";
-	private static final String CLOCKWISE = "Clockwise";
 	private static final String COUNTER_CLOCKWISE = "Counter-Clockwise";
-	private static final String ST_BONIFACE = "St Boniface";
-	private static final String WOLSELEY = "Wolseley";
 	private static final String DOWNTOWN = "Downtown";
 	private static final String CITY_HALL = "City Hall";
 	private static final String WINDERMERE = "Windermere";
@@ -209,10 +206,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		if (isGoodEnoughAccepted()) {
 			if (mRoute.getId() == 2l) {
 				if (gTrip.getDirectionId() == 0) {
-					// if ("Downtown Spirit-counterclockwise".equalsIgnoreCase(gTrip.getTripHeadsign())) {
 					mTrip.setHeadsignString(COUNTER_CLOCKWISE, gTrip.getDirectionId());
 					return;
-					// }
 				}
 			}
 		}
@@ -320,6 +315,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 94l) {
 			if (Arrays.asList( //
 					"Chevrier & Pembina", //
+					"Windermere & Pembina", //
 					"Walmart & Kenaston", //
 					"Wildwood", //
 					"Wildwood Pk" //
@@ -328,16 +324,13 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				return true;
 			} else if (Arrays.asList( //
 					"Henlow & Scurfield", //
-					"Whyteridge" //
+					"Whyte Rdg" //
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString("Whyteridge", mTrip.getHeadsignId());
+				mTrip.setHeadsignString("Whyte Rdg", mTrip.getHeadsignId());
 				return true;
 			}
 		}
 		if (!isGoodEnoughAccepted()) {
-			if (false) {
-				return false; // TODO clean this
-			}
 			System.out.printf("\nUnexpected trips to merge %s & %s!\n", mTrip, mTripToMerge);
 			System.exit(-1);
 			return false;
