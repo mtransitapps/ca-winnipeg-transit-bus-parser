@@ -466,6 +466,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					"I", //
 					OMANDS_CREEK, //
+					RED_RIVER_COLLEGE, //
 					INKSTER_IND_PARK //
 					).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(INKSTER_IND_PARK, mTrip.getHeadsignId());
@@ -706,7 +707,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			} else if (Arrays.asList( //
 					"Gdn City Ctr", // <>
 					"Main" + AND + "Margaret", // <>
-					"Red River College", //
+					RED_RIVER_COLLEGE, //
 					"Whellams Ln", //
 					KILDONAN_PL //
 					).containsAll(headsignsValues)) {
