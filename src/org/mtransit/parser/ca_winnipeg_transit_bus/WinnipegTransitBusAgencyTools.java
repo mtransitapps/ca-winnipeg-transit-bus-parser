@@ -412,6 +412,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					DOWNTOWN, // <>
 					"Kingston Row", // <>
 					SELKIRK + AND + "McPhillips", // <>
+					"Main" + AND + "Pioneer", // <>
 					"Plz Dr", //
 					ISLAND_LAKES, //
 					OSBORNE + " Junction", //
@@ -426,6 +427,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					DOWNTOWN, // <>
 					"Kingston Row", // <>
 					"Selkirk" + AND + "McPhillips", // <>
+					"Main" + AND + "Pioneer", // <>
 					"Tyndall Pk" //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString("Tyndall Pk", mTrip.getHeadsignId());
@@ -789,6 +791,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					UNIVERSITY_OF_MANITOBA //
 					).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA, mTrip.getHeadsignId());
+				return true;
+			}
+		} else if (mTrip.getRouteId() == 75L) {
+			if (Arrays.asList( //
+					"Speers" + AND + "Elizabeth", //
+					KILDONAN_PL //
+					).containsAll(headsignsValues)) {
+				mTrip.setHeadsignString(KILDONAN_PL, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 77L) {
