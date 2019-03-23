@@ -973,6 +973,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 162L) {
 			if (Arrays.asList( //
 					"Killarney" + AND + "Pembina", //
+					"FRSN", //
 					DOWNTOWN //
 					).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
