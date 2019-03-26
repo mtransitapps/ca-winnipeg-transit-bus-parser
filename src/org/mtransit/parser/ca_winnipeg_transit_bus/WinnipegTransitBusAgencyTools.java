@@ -974,6 +974,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					"Killarney" + AND + "Pembina", //
 					"FRSN", //
+					"Fort Rouge Sta", //
 					DOWNTOWN //
 					).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
