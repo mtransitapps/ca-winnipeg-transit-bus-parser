@@ -142,6 +142,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
 	private static final String AND = " & ";
 	private static final String SLASH = " / ";
+	private static final String _DASH_ = " - ";
 
 	private static final String ASSINIBOINE_PARK = "Assiniboine Pk";
 	private static final String COUNTER_CLOCKWISE = "Counter-Clockwise";
@@ -801,8 +802,16 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				mTrip.setHeadsignString(KILDONAN_PL, mTrip.getHeadsignId());
 				return true;
 			}
+			if (Arrays.asList( //
+					"Betournay" + _DASH_ + "Speers", //
+					KILDONAN_PL //
+					).containsAll(headsignsValues)) {
+				mTrip.setHeadsignString(KILDONAN_PL, mTrip.getHeadsignId());
+				return true;
+			}
 		} else if (mTrip.getRouteId() == 77L) {
 			if (Arrays.asList( //
+					RED_RIVER_COLLEGE, // <>
 					"Gdn City Ctr", // <>
 					"Main" + AND + "Margaret", // <>
 					"Keewatin" + AND + "Inkster", //
@@ -813,7 +822,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			} else if (Arrays.asList( //
 					"Gdn City Ctr", // <>
 					"Main" + AND + "Margaret", // <>
-					RED_RIVER_COLLEGE, //
+					RED_RIVER_COLLEGE, // <>
 					"Whellams Ln", //
 					KILDONAN_PL //
 					).containsAll(headsignsValues)) {
