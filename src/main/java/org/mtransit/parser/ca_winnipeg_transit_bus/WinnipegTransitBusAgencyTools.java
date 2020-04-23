@@ -343,16 +343,23 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 15L) {
 			if (Arrays.asList( //
-					DOWNTOWN, // <>
 					"Mtn" + AND + "Fife", // <>
+					DOWNTOWN // <>
+			).containsAll(headsignsValues)) {
+				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
+				return true;
+			}
+			if (Arrays.asList( //
+					"Mtn" + AND + "Fife", // <>
+					DOWNTOWN, // <>
 					AIRPORT //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(AIRPORT, mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
-					DOWNTOWN, // <>
 					"Mtn" + AND + "Fife", // <>
+					DOWNTOWN, // <>
 					INKSTER_PARK //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(INKSTER_PARK, mTrip.getHeadsignId()); // Mtn & Fife
