@@ -447,6 +447,13 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				mTrip.setHeadsignString(WINDSOR_PARK, mTrip.getHeadsignId());
 				return true;
 			}
+			if (Arrays.asList( //
+					"Notre Dame & Arlington", //
+					WINDSOR_PARK //
+			).containsAll(headsignsValues)) {
+				mTrip.setHeadsignString(WINDSOR_PARK, mTrip.getHeadsignId());
+				return true;
+			}
 		} else if (mTrip.getRouteId() == 20L) {
 			if (Arrays.asList( //
 					DOWNTOWN, //
