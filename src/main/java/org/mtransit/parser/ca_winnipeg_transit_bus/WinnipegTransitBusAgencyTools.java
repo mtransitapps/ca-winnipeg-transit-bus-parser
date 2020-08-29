@@ -678,6 +678,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 55L) {
 			if (Arrays.asList( //
 					PORTAGE + AND + "Garry", //
+					"St Anne's & Beliveau", //
 					"St Anne's" + AND + "Niakwa", //
 					UNIVERSITY_OF_WINNIPEG //
 			).containsAll(headsignsValues)) {
@@ -1015,6 +1016,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					RICHMOND_WEST + SLASH + SOUTH_POINTE // ++
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(RICHMOND_WEST + SLASH + SOUTH_POINTE, mTrip.getHeadsignId());
+				return true;
+			}
+		} else if (mTrip.getRouteId() == 662L) {
+			if (Arrays.asList( //
+					"Killarney & Pembina", //
+					"Markham Sta" //
+					).containsAll(headsignsValues)) {
+				mTrip.setHeadsignString("Markham Sta", mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 677L) {
