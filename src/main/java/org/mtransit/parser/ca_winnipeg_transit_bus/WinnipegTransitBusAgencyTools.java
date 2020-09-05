@@ -144,8 +144,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		return super.getRouteColor(gRoute);
 	}
 
-	private static final String AND = " & ";
-	private static final String SLASH = " / ";
+	private static final String _AND_ = " & ";
+	private static final String _SLASH_ = " / ";
 	private static final String _DASH_ = " - ";
 
 	private static final String ASSINIBOINE_PARK = "Assiniboine Pk";
@@ -295,8 +295,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					DOWNTOWN, //
 					GLENWAY, //
 					THE_FORKS, //
-					PORTAGE + AND + ROUGE, //
-					PORTAGE + AND + WOODHAVEN, //
+					PORTAGE + _AND_ + ROUGE, //
+					PORTAGE + _AND_ + WOODHAVEN, //
 					NORTH_KILDONAN, //
 					KILDONAN //
 			).containsAll(headsignsValues)) {
@@ -307,7 +307,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					"Crestview", //
 					HENDERSON, //
 					"St Charles", //
-					PORTAGE + AND + WOODHAVEN, //
+					PORTAGE + _AND_ + WOODHAVEN, //
 					UNIVERSITY_OF_WINNIPEG, //
 					"Westwood", //
 					POLO_PARK, //
@@ -319,7 +319,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 12L) {
 			if (Arrays.asList( //
 					"Health Sciences Ctr", //
-					"Valour" + AND + PORTAGE, //
+					"Valour" + _AND_ + PORTAGE, //
 					POLO_PARK //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(POLO_PARK, mTrip.getHeadsignId());
@@ -328,7 +328,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 14L) {
 			if (Arrays.asList( //
 					DOWNTOWN, // <>
-					"St Mary's" + AND + "Dakota", //
+					"St Mary's" + _AND_ + "Dakota", //
 					FERRY_RD //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(FERRY_RD, mTrip.getHeadsignId());
@@ -343,14 +343,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 15L) {
 			if (Arrays.asList( //
-					"Mtn" + AND + "Fife", // <>
+					"Mtn" + _AND_ + "Fife", // <>
 					DOWNTOWN // <>
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
-					"Mtn" + AND + "Fife", // <>
+					"Mtn" + _AND_ + "Fife", // <>
 					DOWNTOWN, // <>
 					AIRPORT //
 			).containsAll(headsignsValues)) {
@@ -358,7 +358,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				return true;
 			}
 			if (Arrays.asList( //
-					"Mtn" + AND + "Fife", // <>
+					"Mtn" + _AND_ + "Fife", // <>
 					DOWNTOWN, // <>
 					INKSTER_PARK //
 			).containsAll(headsignsValues)) {
@@ -369,23 +369,23 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					DOWNTOWN, // <>
 					"Kingston Row", // <>
-					SELKIRK + AND + "McPhillips", // <>
-					"Main" + AND + "Pioneer", // <>
+					SELKIRK + _AND_ + "McPhillips", // <>
+					"Main" + _AND_ + "Pioneer", // <>
 					"Plz Dr", //
 					ISLAND_LAKES, //
 					OSBORNE + " Junction", //
 					ST_VITAL_CTR, //
 					"Southdale Ctr", //
-					ST_VITAL_CTR + SLASH + "Southdale Ctr" // merge
+					ST_VITAL_CTR + _SLASH_ + "Southdale Ctr" // merge
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString("St Vital Ctr" + SLASH + "Southdale Ctr", mTrip.getHeadsignId());
+				mTrip.setHeadsignString("St Vital Ctr" + _SLASH_ + "Southdale Ctr", mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
 					DOWNTOWN, // <>
 					"Kingston Row", // <>
-					"Selkirk" + AND + "McPhillips", // <>
-					"Main" + AND + "Pioneer", // <>
+					"Selkirk" + _AND_ + "McPhillips", // <>
+					"Main" + _AND_ + "Pioneer", // <>
 					"Tyndall Pk" //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString("Tyndall Pk", mTrip.getHeadsignId());
@@ -403,7 +403,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 			if (Arrays.asList( //
 					DOWNTOWN, // <>
-					"Memorial" + AND + "Broadway", //
+					"Memorial" + _AND_ + "Broadway", //
 					"Gdn City Ctr", //
 					MISERICORDIA //
 			).containsAll(headsignsValues)) {
@@ -413,7 +413,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 18L) {
 			if (Arrays.asList( //
 					DOWNTOWN, // <>
-					"Main" + AND + "Templeton", //
+					"Main" + _AND_ + "Templeton", //
 					"Gdn City Ctr", // !=
 					RIVERBEND, // !=
 					NORTH_MAIN // ++
@@ -423,8 +423,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 			if (Arrays.asList( //
 					DOWNTOWN, // <>
-					"Main" + AND + "McAdam", //
-					CORYDON + AND + "Cambridge", //
+					"Main" + _AND_ + "McAdam", //
+					CORYDON + _AND_ + "Cambridge", //
 					"Tuxedo", //
 					ASSINIBOINE_PARK //
 			).containsAll(headsignsValues)) {
@@ -434,7 +434,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 19L) {
 			if (Arrays.asList( //
 					DOWNTOWN, // <>
-					"Elizabeth" + AND + "Drake", //
+					"Elizabeth" + _AND_ + "Drake", //
 					RED_RIVER_COLLEGE //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(RED_RIVER_COLLEGE, mTrip.getHeadsignId());
@@ -457,18 +457,18 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 20L) {
 			if (Arrays.asList( //
 					DOWNTOWN, //
-					PORTAGE + AND + "Tylehurst", //
-					"Redwood" + AND + "Main", //
+					PORTAGE + _AND_ + "Tylehurst", //
+					"Redwood" + _AND_ + "Main", //
 					AIRPORT //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(AIRPORT, mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
-					"Fort" + AND + PORTAGE, //
-					WATT + AND + "Leighton" //
+					"Fort" + _AND_ + PORTAGE, //
+					WATT + _AND_ + "Leighton" //
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(WATT + AND + "Leighton", mTrip.getHeadsignId());
+				mTrip.setHeadsignString(WATT + _AND_ + "Leighton", mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 21L) {
@@ -483,8 +483,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				return true;
 			}
 			if (Arrays.asList( //
-					PORTAGE + AND + ROUGE, //
-					PORTAGE + AND + WOODHAVEN, //
+					PORTAGE + _AND_ + ROUGE, //
+					PORTAGE + _AND_ + WOODHAVEN, //
 					CITY_HALL //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(CITY_HALL, mTrip.getHeadsignId());
@@ -501,8 +501,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				return true;
 			}
 			if (Arrays.asList( //
-					PORTAGE + AND + ROUGE, //
-					PORTAGE + AND + WOODHAVEN, //
+					PORTAGE + _AND_ + ROUGE, //
+					PORTAGE + _AND_ + WOODHAVEN, //
 					CITY_HALL //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(CITY_HALL, mTrip.getHeadsignId());
@@ -510,7 +510,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 24L) {
 			if (Arrays.asList( //
-					PORTAGE + AND + "Tylehurst", //
+					PORTAGE + _AND_ + "Tylehurst", //
 					POLO_PARK, //
 					CITY_HALL //
 			).containsAll(headsignsValues)) {
@@ -519,7 +519,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 26L) {
 			if (Arrays.asList( //
-					PORTAGE + AND + "Tylehurst", //
+					PORTAGE + _AND_ + "Tylehurst", //
 					POLO_PARK //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(POLO_PARK, mTrip.getHeadsignId());
@@ -539,23 +539,23 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					CITY_HALL, // !=
 					WINDERMERE, // !=
-					CITY_HALL + SLASH + WINDERMERE // ++
+					CITY_HALL + _SLASH_ + WINDERMERE // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(CITY_HALL + SLASH + WINDERMERE, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(CITY_HALL + _SLASH_ + WINDERMERE, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 31L) {
 			if (Arrays.asList( //
 					MEADOWS_WEST, // !=
 					OAK_POINT, // !=
-					MEADOWS_WEST + SLASH + OAK_POINT // ++
+					MEADOWS_WEST + _SLASH_ + OAK_POINT // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(MEADOWS_WEST + SLASH + OAK_POINT, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(MEADOWS_WEST + _SLASH_ + OAK_POINT, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 32L) {
 			if (Arrays.asList( //
-					"Main" + AND + "Seven Oaks", //
+					"Main" + _AND_ + "Seven Oaks", //
 					DOWNTOWN //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -563,14 +563,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			} else if (Arrays.asList( //
 					LEILA, // !=
 					RIVERBEND, // !=
-					LEILA + SLASH + RIVERBEND // ++
+					LEILA + _SLASH_ + RIVERBEND // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(LEILA + SLASH + RIVERBEND, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(LEILA + _SLASH_ + RIVERBEND, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 33L) {
 			if (Arrays.asList( //
-					"McPhillips" + AND + "Mapleglen", //
+					"McPhillips" + _AND_ + "Mapleglen", //
 					DOWNTOWN //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -592,9 +592,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 38L) {
 			if (Arrays.asList( //
-					PORTAGE + AND + "Fort", //
-					"Templeton" + AND + "Salter", //
-					"William Stephenson" + AND + "Main", //
+					PORTAGE + _AND_ + "Fort", //
+					"Templeton" + _AND_ + "Salter", //
+					"William Stephenson" + _AND_ + "Main", //
 					THE_FORKS //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(THE_FORKS, mTrip.getHeadsignId());
@@ -604,14 +604,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					NORTH_KILDONAN, // !=
 					GLENWAY, // !=
-					GLENWAY + SLASH + NORTH_KILDONAN // ++
+					GLENWAY + _SLASH_ + NORTH_KILDONAN // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(GLENWAY + SLASH + NORTH_KILDONAN, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(GLENWAY + _SLASH_ + NORTH_KILDONAN, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 44L) {
 			if (Arrays.asList( //
-					"London" + AND + "Munroe", //
+					"London" + _AND_ + "Munroe", //
 					DOWNTOWN, //
 					BROADWAY //
 			).containsAll(headsignsValues)) {
@@ -620,13 +620,13 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 45L) {
 			if (Arrays.asList( //
-					"Main" + AND + "Pioneer", //
+					"Main" + _AND_ + "Pioneer", //
 					DOWNTOWN //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
 				return true;
 			} else if (Arrays.asList( //
-					"Munroe" + AND + "Prevette", //
+					"Munroe" + _AND_ + "Prevette", //
 					KILDONAN_PL //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(KILDONAN_PL, mTrip.getHeadsignId());
@@ -634,7 +634,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 46L) {
 			if (Arrays.asList( //
-					"Plessis" + AND + "Regent", //
+					"Plessis" + _AND_ + "Regent", //
 					BALMORAL_STA //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(BALMORAL_STA, mTrip.getHeadsignId());
@@ -642,7 +642,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 47L) {
 			if (Arrays.asList( //
-					"Main" + AND + PORTAGE, //
+					"Main" + _AND_ + PORTAGE, //
 					KILDONAN_PL, //
 					UNIVERSITY_OF_MANITOBA, //
 					BALMORAL_STA //
@@ -652,7 +652,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 49L) {
 			if (Arrays.asList( //
-					"Dugald" + AND + "Beghin", //
+					"Dugald" + _AND_ + "Beghin", //
 					NORTH_TRANSCONA //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(NORTH_TRANSCONA, mTrip.getHeadsignId());
@@ -670,16 +670,16 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					ST_AMANT, // !=
 					SOUTH_ST_VITAL, // !=
-					SOUTH_ST_VITAL + SLASH + ST_AMANT // ++
+					SOUTH_ST_VITAL + _SLASH_ + ST_AMANT // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(SOUTH_ST_VITAL + SLASH + ST_AMANT, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(SOUTH_ST_VITAL + _SLASH_ + ST_AMANT, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 55L) {
 			if (Arrays.asList( //
-					PORTAGE + AND + "Garry", //
+					PORTAGE + _AND_ + "Garry", //
 					"St Anne's & Beliveau", //
-					"St Anne's" + AND + "Niakwa", //
+					"St Anne's" + _AND_ + "Niakwa", //
 					UNIVERSITY_OF_WINNIPEG //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(UNIVERSITY_OF_WINNIPEG, mTrip.getHeadsignId());
@@ -687,7 +687,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 56L) {
 			if (Arrays.asList( //
-					PORTAGE + AND + "Garry", //
+					PORTAGE + _AND_ + "Garry", //
 					UNIVERSITY_OF_WINNIPEG //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(UNIVERSITY_OF_WINNIPEG, mTrip.getHeadsignId());
@@ -697,15 +697,15 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					ALDGATE, // !=
 					ISLAND_LAKES, // !=
-					ALDGATE + SLASH + ISLAND_LAKES // ++
+					ALDGATE + _SLASH_ + ISLAND_LAKES // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(ALDGATE + SLASH + ISLAND_LAKES, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(ALDGATE + _SLASH_ + ISLAND_LAKES, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 65L) {
 			if (Arrays.asList( //
 					"Kenaston", //
-					"Roblin" + AND + "Dieppe", //
+					"Roblin" + _AND_ + "Dieppe", //
 					DOWNTOWN //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -713,14 +713,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 66L) {
 			if (Arrays.asList( //
-					"Grant" + AND + "Kenaston", //
+					"Grant" + _AND_ + "Kenaston", //
 					DOWNTOWN //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
-					"Grant" + AND + "Kenaston", //
+					"Grant" + _AND_ + "Kenaston", //
 					"Downtown (City Hall)" //
 					).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString("Downtown (City Hall)", mTrip.getHeadsignId());
@@ -730,21 +730,21 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					"Dieppe Loop", //
 					POLO_PARK, // !=
 					UNICITY, // !=
-					UNICITY + SLASH + POLO_PARK // ++
+					UNICITY + _SLASH_ + POLO_PARK // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(UNICITY + SLASH + POLO_PARK, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(UNICITY + _SLASH_ + POLO_PARK, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 68L) {
 			if (Arrays.asList( //
-					"Stradbrook" + AND + "Osborne", //
+					"Stradbrook" + _AND_ + "Osborne", //
 					UNIVERSITY_OF_WINNIPEG //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(UNIVERSITY_OF_WINNIPEG, mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
-					"Stradbrook" + AND + "Osborne", //
+					"Stradbrook" + _AND_ + "Osborne", //
 					DOWNTOWN //
 					).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -754,12 +754,12 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					TEMPLETON, // !=
 					WAL_MART, // !=
-					WAL_MART + SLASH + TEMPLETON // != ++
+					WAL_MART + _SLASH_ + TEMPLETON // != ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(WAL_MART + SLASH + TEMPLETON, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(WAL_MART + _SLASH_ + TEMPLETON, mTrip.getHeadsignId());
 				return true;
 			} else if (Arrays.asList( //
-					"Arlington" + AND + "Mtn", //
+					"Arlington" + _AND_ + "Mtn", //
 					PORTAGE//
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(PORTAGE, mTrip.getHeadsignId());
@@ -768,8 +768,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		} else if (mTrip.getRouteId() == 72L) {
 			if (Arrays.asList( //
 					"Dalhousie", //
-					"Dalhousie" + AND + "Pembina", //
-					"Killarney" + AND + "Pembina", //
+					"Dalhousie" + _AND_ + "Pembina", //
+					"Killarney" + _AND_ + "Pembina", //
 					UNIVERSITY_OF_MANITOBA //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA, mTrip.getHeadsignId());
@@ -777,7 +777,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 75L) {
 			if (Arrays.asList( //
-					"Speers" + AND + "Elizabeth", //
+					"Speers" + _AND_ + "Elizabeth", //
 					KILDONAN_PL //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(KILDONAN_PL, mTrip.getHeadsignId());
@@ -794,15 +794,15 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					RED_RIVER_COLLEGE, // <>
 					"Gdn City Ctr", // <>
-					"Main" + AND + "Margaret", // <>
-					"Keewatin" + AND + "Inkster", //
+					"Main" + _AND_ + "Margaret", // <>
+					"Keewatin" + _AND_ + "Inkster", //
 					POLO_PARK //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(POLO_PARK, mTrip.getHeadsignId());
 				return true;
 			} else if (Arrays.asList( //
 					"Gdn City Ctr", // <>
-					"Main" + AND + "Margaret", // <>
+					"Main" + _AND_ + "Margaret", // <>
 					RED_RIVER_COLLEGE, // <>
 					"Whellams Ln", //
 					KILDONAN_PL //
@@ -812,7 +812,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 79L) {
 			if (Arrays.asList( //
-					PORTAGE + AND + "Tylehurst", //
+					PORTAGE + _AND_ + "Tylehurst", //
 					POLO_PARK //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(POLO_PARK, mTrip.getHeadsignId());
@@ -820,14 +820,16 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 83L) {
 			if (Arrays.asList( //
-					"Crestview" + AND + "Ashern", //
+					"Thompson" + _AND_ + "Ness", // <>
+					"Crestview" + _AND_ + "Ashern", //
 					UNICITY //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(UNICITY, mTrip.getHeadsignId());
 				return true;
-			} else if (Arrays.asList( //
+			}
+			if (Arrays.asList( //
 					"Grace Hosp", //
-					"Thompson" + AND + "Ness", //
+					"Thompson" + _AND_ + "Ness", // <>
 					MURRAY_PARK //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(MURRAY_PARK, mTrip.getHeadsignId());
@@ -841,7 +843,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 				mTrip.setHeadsignString(KILDONAN_PL, mTrip.getHeadsignId());
 				return true;
 			} else if (Arrays.asList( //
-					HENDERSON + AND + WHELLAMS, //
+					HENDERSON + _AND_ + WHELLAMS, //
 					WHELLAMS_LOOP //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(WHELLAMS_LOOP, mTrip.getHeadsignId());
@@ -849,7 +851,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 87L) {
 			if (Arrays.asList( //
-					"Beghin" + AND + "Dugald", //
+					"Beghin" + _AND_ + "Dugald", //
 					SOUTH_TRANSCONA //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(SOUTH_TRANSCONA, mTrip.getHeadsignId());
@@ -857,7 +859,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 89L) {
 			if (Arrays.asList( //
-					"Day" + AND + "Regent", //
+					"Day" + _AND_ + "Regent", //
 					KILDONAN_PL //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(KILDONAN_PL, mTrip.getHeadsignId());
@@ -881,16 +883,16 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 94L) {
 			if (Arrays.asList( //
-					"Chevrier" + AND + "Pembina", //
-					"Windermere" + AND + "Pembina", //
-					"Walmart" + AND + "Kenaston", //
+					"Chevrier" + _AND_ + "Pembina", //
+					"Windermere" + _AND_ + "Pembina", //
+					"Walmart" + _AND_ + "Kenaston", //
 					"Wildwood", //
 					"Wildwood Pk" //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString("Wildwood Pk", mTrip.getHeadsignId());
 				return true;
 			} else if (Arrays.asList( //
-					"Henlow" + AND + "Scurfield", //
+					"Henlow" + _AND_ + "Scurfield", //
 					WHYTE_RDG).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(WHYTE_RDG, mTrip.getHeadsignId());
 				return true;
@@ -936,7 +938,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 99L) {
 			if (Arrays.asList( //
-					"Stradbrook" + AND + "Donald", //
+					"Stradbrook" + _AND_ + "Donald", //
 					DOWNTOWN // <>
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -945,24 +947,24 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					DOWNTOWN, // <>
 					MISERICORDIA, // !=
 					WINDERMERE, // !=
-					WINDERMERE + AND + "Pembina", //
-					MISERICORDIA + SLASH + WINDERMERE // ++
+					WINDERMERE + _AND_ + "Pembina", //
+					MISERICORDIA + _SLASH_ + WINDERMERE // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(MISERICORDIA + SLASH + WINDERMERE, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(MISERICORDIA + _SLASH_ + WINDERMERE, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 137L) {
 			if (Arrays.asList( //
 					UNIVERSITY_OF_MANITOBA, // !=
 					ST_NORBERT, // !=
-					ST_NORBERT + SLASH + UNIVERSITY_OF_MANITOBA // ++
+					ST_NORBERT + _SLASH_ + UNIVERSITY_OF_MANITOBA // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(ST_NORBERT + SLASH + UNIVERSITY_OF_MANITOBA, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(ST_NORBERT + _SLASH_ + UNIVERSITY_OF_MANITOBA, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 162L) {
 			if (Arrays.asList( //
-					"Killarney" + AND + "Pembina", //
+					"Killarney" + _AND_ + "Pembina", //
 					"FRSN", //
 					"Fort Rouge Sta", //
 					DOWNTOWN //
@@ -973,14 +975,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					"Turnbull Dr", //
 					ST_NORBERT, // !=
 					UNIVERSITY_OF_MANITOBA, // !=
-					UNIVERSITY_OF_MANITOBA + SLASH + ST_NORBERT // ++
+					UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + SLASH + ST_NORBERT, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 163L) {
 			if (Arrays.asList( //
-					"Pembina" + AND + "Univ Cresc.", //
+					"Pembina" + _AND_ + "Univ Cresc.", //
 					DOWNTOWN //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -988,7 +990,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 170L) {
 			if (Arrays.asList( //
-					"Killarney" + AND + "Pembina", //
+					"Killarney" + _AND_ + "Pembina", //
 					DOWNTOWN //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -996,14 +998,14 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			} else if (Arrays.asList( //
 					ST_NORBERT, // !=
 					UNIVERSITY_OF_MANITOBA, // !=
-					UNIVERSITY_OF_MANITOBA + SLASH + ST_NORBERT // ++
+					UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT // ++
 					).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + SLASH + ST_NORBERT, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 181L) {
 			if (Arrays.asList( //
-					"Pembina" + AND + "Pt", //
+					"Pembina" + _AND_ + "Pt", //
 					DOWNTOWN //
 			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
@@ -1013,9 +1015,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					RICHMOND_WEST, // !=
 					SOUTH_POINTE, // !=
-					RICHMOND_WEST + SLASH + SOUTH_POINTE // ++
+					RICHMOND_WEST + _SLASH_ + SOUTH_POINTE // ++
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(RICHMOND_WEST + SLASH + SOUTH_POINTE, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(RICHMOND_WEST + _SLASH_ + SOUTH_POINTE, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 662L) {
@@ -1038,9 +1040,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					UNIVERSITY_OF_MANITOBA, //
 					ST_NORBERT, //
-					UNIVERSITY_OF_MANITOBA + SLASH + ST_NORBERT // ++
+					UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT // ++
 					).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + SLASH + ST_NORBERT, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT, mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
