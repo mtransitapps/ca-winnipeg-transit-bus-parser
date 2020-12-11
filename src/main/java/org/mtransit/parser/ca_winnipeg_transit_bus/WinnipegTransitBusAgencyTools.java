@@ -1,6 +1,8 @@
 package org.mtransit.parser.ca_winnipeg_transit_bus;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mtransit.parser.CleanUtils;
 import org.mtransit.parser.DefaultAgencyTools;
 import org.mtransit.parser.MTLog;
@@ -31,7 +33,7 @@ import java.util.regex.Pattern;
 // http://gtfs.winnipegtransit.com/google_transit.zip
 public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
-	public static void main(String[] args) {
+	public static void main(@Nullable String[] args) {
 		if (args == null || args.length == 0) {
 			args = new String[3];
 			args[0] = "input/gtfs.zip";
@@ -41,54 +43,58 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		new WinnipegTransitBusAgencyTools().start(args);
 	}
 
-	private HashSet<String> serviceIds;
+	@Nullable
+	private HashSet<Integer> serviceIdInts;
 
 	@Override
-	public void start(String[] args) {
+	public void start(@NotNull String[] args) {
 		MTLog.log("Generating Winnipeg Transit bus data...");
 		long start = System.currentTimeMillis();
-		this.serviceIds = extractUsefulServiceIds(args, this, true);
+		this.serviceIdInts = extractUsefulServiceIdInts(args, this, true);
 		super.start(args);
 		MTLog.log("Generating Winnipeg Transit bus data... DONE in %s.", Utils.getPrettyDuration(System.currentTimeMillis() - start));
 	}
 
 	@Override
 	public boolean excludingAll() {
-		return this.serviceIds != null && this.serviceIds.isEmpty();
+		return this.serviceIdInts != null && this.serviceIdInts.isEmpty();
 	}
 
 	@Override
-	public boolean excludeCalendar(GCalendar gCalendar) {
-		if (this.serviceIds != null) {
-			return excludeUselessCalendar(gCalendar, this.serviceIds);
+	public boolean excludeCalendar(@NotNull GCalendar gCalendar) {
+		if (this.serviceIdInts != null) {
+			return excludeUselessCalendarInt(gCalendar, this.serviceIdInts);
 		}
 		return super.excludeCalendar(gCalendar);
 	}
 
 	@Override
-	public boolean excludeCalendarDate(GCalendarDate gCalendarDates) {
-		if (this.serviceIds != null) {
-			return excludeUselessCalendarDate(gCalendarDates, this.serviceIds);
+	public boolean excludeCalendarDate(@NotNull GCalendarDate gCalendarDates) {
+		if (this.serviceIdInts != null) {
+			return excludeUselessCalendarDateInt(gCalendarDates, this.serviceIdInts);
 		}
 		return super.excludeCalendarDate(gCalendarDates);
 	}
 
 	@Override
-	public boolean excludeTrip(GTrip gTrip) {
-		if (this.serviceIds != null) {
-			return excludeUselessTrip(gTrip, this.serviceIds);
+	public boolean excludeTrip(@NotNull GTrip gTrip) {
+		if (this.serviceIdInts != null) {
+			return excludeUselessTripInt(gTrip, this.serviceIdInts);
 		}
 		return super.excludeTrip(gTrip);
 	}
 
+	@NotNull
 	@Override
 	public Integer getAgencyRouteType() {
 		return MAgency.ROUTE_TYPE_BUS;
 	}
 
 	@Override
-	public long getRouteId(GRoute gRoute) {
-		if (!Utils.isDigitsOnly(gRoute.getRouteId())) {
+	public long getRouteId(@NotNull GRoute gRoute) {
+		//noinspection deprecation
+		final String routeId = gRoute.getRouteId();
+		if (!Utils.isDigitsOnly(routeId)) {
 			if ("BLUE".equalsIgnoreCase(gRoute.getRouteShortName())) {
 				return 22_222L;
 			}
@@ -97,13 +103,16 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		return super.getRouteId(gRoute);
 	}
 
+	@NotNull
 	@Override
-	public String getRouteLongName(GRoute gRoute) {
+	public String getRouteLongName(@NotNull GRoute gRoute) {
 		if (StringUtils.isEmpty(gRoute.getRouteLongName())) {
 			if ("BLUE".equalsIgnoreCase(gRoute.getRouteShortName())) {
 				return StringUtils.EMPTY; // TODO?
 			}
-			int routeId = Integer.parseInt(gRoute.getRouteId());
+			//noinspection deprecation
+			final String routeId1 = gRoute.getRouteId();
+			int routeId = Integer.parseInt(routeId1);
 			switch (routeId) {
 			case 72:
 				return UNIVERSITY_OF_MANITOBA + " - " + RICHMOND_WEST;
@@ -113,8 +122,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			case 86:
 				return WHYTE_RDG;
 			}
-			MTLog.logFatal("Unexpected route long name %s!", gRoute);
-			return null;
+			throw new MTLog.Fatal("Unexpected route long name %s!", gRoute);
 		}
 		return cleanTripHeadsign(gRoute.getRouteLongName()); // used in real-time API
 	}
@@ -123,6 +131,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
 	private static final String AGENCY_COLOR = AGENCY_COLOR_BLUE;
 
+	@NotNull
 	@Override
 	public String getAgencyColor() {
 		return AGENCY_COLOR;
@@ -133,8 +142,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final String COLOR_F0B40F = "F0B40F";
 	private static final String COLOR_FFFF00 = "FFFF00";
 
+	@Nullable
 	@Override
-	public String getRouteColor(GRoute gRoute) {
+	public String getRouteColor(@NotNull GRoute gRoute) {
 		if (COLOR_FFFFFF.equalsIgnoreCase(gRoute.getRouteColor())) {
 			return COLOR_231F20;
 		}
@@ -211,7 +221,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final String WOODHAVEN = "Woodhaven";
 	private static final String ROUGE = "Rouge";
 
-	private static HashMap<Long, RouteTripSpec> ALL_ROUTE_TRIPS2;
+	private static final HashMap<Long, RouteTripSpec> ALL_ROUTE_TRIPS2;
 
 	static {
 		//noinspection UnnecessaryLocalVariable
@@ -220,23 +230,25 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	}
 
 	@Override
-	public int compareEarly(long routeId, List<MTripStop> list1, List<MTripStop> list2, MTripStop ts1, MTripStop ts2, GStop ts1GStop, GStop ts2GStop) {
+	public int compareEarly(long routeId, @NotNull List<MTripStop> list1, @NotNull List<MTripStop> list2, @NotNull MTripStop ts1, @NotNull MTripStop ts2, @NotNull GStop ts1GStop, @NotNull GStop ts2GStop) {
 		if (ALL_ROUTE_TRIPS2.containsKey(routeId)) {
 			return ALL_ROUTE_TRIPS2.get(routeId).compare(routeId, list1, list2, ts1, ts2, ts1GStop, ts2GStop, this);
 		}
 		return super.compareEarly(routeId, list1, list2, ts1, ts2, ts1GStop, ts2GStop);
 	}
 
+	@NotNull
 	@Override
-	public ArrayList<MTrip> splitTrip(MRoute mRoute, GTrip gTrip, GSpec gtfs) {
+	public ArrayList<MTrip> splitTrip(@NotNull MRoute mRoute, @Nullable GTrip gTrip, @NotNull GSpec gtfs) {
 		if (ALL_ROUTE_TRIPS2.containsKey(mRoute.getId())) {
 			return ALL_ROUTE_TRIPS2.get(mRoute.getId()).getAllTrips();
 		}
 		return super.splitTrip(mRoute, gTrip, gtfs);
 	}
 
+	@NotNull
 	@Override
-	public Pair<Long[], Integer[]> splitTripStop(MRoute mRoute, GTrip gTrip, GTripStop gTripStop, ArrayList<MTrip> splitTrips, GSpec routeGTFS) {
+	public Pair<Long[], Integer[]> splitTripStop(@NotNull MRoute mRoute, @NotNull GTrip gTrip, @NotNull GTripStop gTripStop, @NotNull ArrayList<MTrip> splitTrips, @NotNull GSpec routeGTFS) {
 		if (ALL_ROUTE_TRIPS2.containsKey(mRoute.getId())) {
 			return SplitUtils.splitTripStop(mRoute, gTrip, gTripStop, routeGTFS, ALL_ROUTE_TRIPS2.get(mRoute.getId()), this);
 		}
@@ -244,18 +256,21 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	}
 
 	@Override
-	public void setTripHeadsign(MRoute mRoute, MTrip mTrip, GTrip gTrip, GSpec gtfs) {
+	public void setTripHeadsign(@NotNull MRoute mRoute, @NotNull MTrip mTrip, @NotNull GTrip gTrip, @NotNull GSpec gtfs) {
 		if (ALL_ROUTE_TRIPS2.containsKey(mRoute.getId())) {
 			return; // split
 		}
 		// DO NOT CHANGE TRIP ID => USED FOR REAL-TIME
 		String gTripHeadsign = gTrip.getTripHeadsign();
 		gTripHeadsign = CleanUtils.keepToAndRemoveVia(gTripHeadsign);
-		mTrip.setHeadsignString(cleanTripHeadsign(gTripHeadsign), gTrip.getDirectionId());
+		mTrip.setHeadsignString(
+				cleanTripHeadsign(gTripHeadsign),
+				gTrip.getDirectionIdOrDefault()
+		);
 	}
 
 	@Override
-	public boolean mergeHeadsign(MTrip mTrip, MTrip mTripToMerge) {
+	public boolean mergeHeadsign(@NotNull MTrip mTrip, @NotNull MTrip mTripToMerge) {
 		List<String> headsignsValues = Arrays.asList(mTrip.getHeadsignValue(), mTripToMerge.getHeadsignValue());
 		if (mTrip.getRouteId() == 1L) {
 			if (Arrays.asList( //
@@ -456,6 +471,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			}
 		} else if (mTrip.getRouteId() == 20L) {
 			if (Arrays.asList( //
+					"Henderson", //
 					DOWNTOWN, //
 					PORTAGE + _AND_ + "Tylehurst", //
 					"Redwood" + _AND_ + "Main", //
@@ -722,7 +738,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					"Grant" + _AND_ + "Kenaston", //
 					"Downtown (City Hall)" //
-					).containsAll(headsignsValues)) {
+			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString("Downtown (City Hall)", mTrip.getHeadsignId());
 				return true;
 			}
@@ -746,7 +762,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					"Stradbrook" + _AND_ + "Osborne", //
 					DOWNTOWN //
-					).containsAll(headsignsValues)) {
+			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
 				return true;
 			}
@@ -999,7 +1015,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					ST_NORBERT, // !=
 					UNIVERSITY_OF_MANITOBA, // !=
 					UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT // ++
-					).containsAll(headsignsValues)) {
+			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT, mTrip.getHeadsignId());
 				return true;
 			}
@@ -1024,7 +1040,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					"Killarney & Pembina", //
 					"Markham Sta" //
-					).containsAll(headsignsValues)) {
+			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString("Markham Sta", mTrip.getHeadsignId());
 				return true;
 			}
@@ -1032,7 +1048,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 			if (Arrays.asList( //
 					"Outlet Mall", //
 					"Kenaston Common" //
-					).containsAll(headsignsValues)) {
+			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString("Kenaston Common", mTrip.getHeadsignId());
 				return true;
 			}
@@ -1041,20 +1057,19 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					UNIVERSITY_OF_MANITOBA, //
 					ST_NORBERT, //
 					UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT // ++
-					).containsAll(headsignsValues)) {
+			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(UNIVERSITY_OF_MANITOBA + _SLASH_ + ST_NORBERT, mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
 					"Fort Rouge Sta", //
 					DOWNTOWN //
-					).containsAll(headsignsValues)) {
+			).containsAll(headsignsValues)) {
 				mTrip.setHeadsignString(DOWNTOWN, mTrip.getHeadsignId());
 				return true;
 			}
 		}
-		MTLog.logFatal("Unexpected trip to merge %s & %s.", mTrip, mTripToMerge);
-		return false;
+		throw new MTLog.Fatal("Unexpected trip to merge %s & %s.", mTrip, mTripToMerge);
 	}
 
 	private static final Pattern POINT = Pattern.compile("((^|\\S)(\\.)(\\S|$))", Pattern.CASE_INSENSITIVE);
@@ -1072,8 +1087,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final Pattern INKSTER_IND_PK = Pattern.compile("(inkster industrial park)", Pattern.CASE_INSENSITIVE);
 	private static final String INKSTER_IND_PK_REPLACEMENT = INKSTER_IND_PARK;
 
+	@NotNull
 	@Override
-	public String cleanTripHeadsign(String tripHeadsign) {
+	public String cleanTripHeadsign(@NotNull String tripHeadsign) {
 		tripHeadsign = CleanUtils.CLEAN_AND.matcher(tripHeadsign).replaceAll(CleanUtils.CLEAN_AND_REPLACEMENT);
 		tripHeadsign = POINT.matcher(tripHeadsign).replaceAll(POINT_REPLACEMENT);
 		tripHeadsign = UNIVERSITY_OF.matcher(tripHeadsign).replaceAll(UNIVERSITY_OF_REPLACEMENT);
@@ -1086,8 +1102,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		return CleanUtils.cleanLabel(tripHeadsign);
 	}
 
+	@NotNull
 	@Override
-	public String cleanStopName(String gStopName) {
+	public String cleanStopName(@NotNull String gStopName) {
 		gStopName = POINT.matcher(gStopName).replaceAll(POINT_REPLACEMENT);
 		gStopName = CleanUtils.cleanBounds(gStopName);
 		gStopName = CleanUtils.CLEAN_AT.matcher(gStopName).replaceAll(CleanUtils.CLEAN_AT_REPLACEMENT);
@@ -1098,8 +1115,10 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	}
 
 	@Override
-	public int getStopId(GStop gStop) {
-		if (!Utils.isDigitsOnly(gStop.getStopId())) {
+	public int getStopId(@NotNull GStop gStop) {
+		//noinspection deprecation
+		final String stopId = gStop.getStopId();
+		if (!Utils.isDigitsOnly(stopId)) {
 			return Integer.parseInt(gStop.getStopCode()); // use stop code as stop ID
 		}
 		return super.getStopId(gStop);
