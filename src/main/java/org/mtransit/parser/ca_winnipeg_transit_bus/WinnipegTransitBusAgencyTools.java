@@ -1,14 +1,11 @@
 package org.mtransit.parser.ca_winnipeg_transit_bus;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mtransit.parser.CleanUtils;
 import org.mtransit.parser.DefaultAgencyTools;
 import org.mtransit.parser.MTLog;
-import org.mtransit.parser.Pair;
-import org.mtransit.parser.SplitUtils;
-import org.mtransit.parser.SplitUtils.RouteTripSpec;
+import org.mtransit.parser.StringUtils;
 import org.mtransit.parser.Utils;
 import org.mtransit.parser.gtfs.data.GCalendar;
 import org.mtransit.parser.gtfs.data.GCalendarDate;
@@ -16,18 +13,16 @@ import org.mtransit.parser.gtfs.data.GRoute;
 import org.mtransit.parser.gtfs.data.GSpec;
 import org.mtransit.parser.gtfs.data.GStop;
 import org.mtransit.parser.gtfs.data.GTrip;
-import org.mtransit.parser.gtfs.data.GTripStop;
 import org.mtransit.parser.mt.data.MAgency;
 import org.mtransit.parser.mt.data.MRoute;
 import org.mtransit.parser.mt.data.MTrip;
-import org.mtransit.parser.mt.data.MTripStop;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import static org.mtransit.parser.StringUtils.EMPTY;
 
 // http://winnipegtransit.com/en/schedules-maps-tools/transittools/open-data/
 // http://gtfs.winnipegtransit.com/google_transit.zip
@@ -108,7 +103,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	public String getRouteLongName(@NotNull GRoute gRoute) {
 		if (StringUtils.isEmpty(gRoute.getRouteLongName())) {
 			if ("BLUE".equalsIgnoreCase(gRoute.getRouteShortName())) {
-				return StringUtils.EMPTY; // TODO?
+				return EMPTY;
 			}
 			//noinspection deprecation
 			final String routeId1 = gRoute.getRouteId();
@@ -128,30 +123,12 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	}
 
 	private static final String AGENCY_COLOR_BLUE = "3256A3"; // BLUE (from PDF map logo)
-
 	private static final String AGENCY_COLOR = AGENCY_COLOR_BLUE;
 
 	@NotNull
 	@Override
 	public String getAgencyColor() {
 		return AGENCY_COLOR;
-	}
-
-	private static final String COLOR_231F20 = "231F20";
-	private static final String COLOR_FFFFFF = "FFFFFF";
-	private static final String COLOR_F0B40F = "F0B40F";
-	private static final String COLOR_FFFF00 = "FFFF00";
-
-	@Nullable
-	@Override
-	public String getRouteColor(@NotNull GRoute gRoute) {
-		if (COLOR_FFFFFF.equalsIgnoreCase(gRoute.getRouteColor())) {
-			return COLOR_231F20;
-		}
-		if (COLOR_FFFF00.equalsIgnoreCase(gRoute.getRouteColor())) {
-			return COLOR_F0B40F;
-		}
-		return super.getRouteColor(gRoute);
 	}
 
 	private static final String _AND_ = " & ";
@@ -168,14 +145,16 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final String SELKIRK = "Selkirk";
 	private static final String OSBORNE = "Osborne";
 	private static final String MISERICORDIA = "Misericordia";
-	private static final String NORTH_MAIN = "North Main";
+	private static final String MISERICORDIA_HEALTH_CENTER = MISERICORDIA + " Health Ctr";
+	private static final String NORTH_MAIN = "N Main";
 	private static final String CORYDON = "Corydon";
 	private static final String RED_RIVER_COLLEGE = "Red River College";
 	private static final String WINDSOR_PARK = "Windsor Pk";
 	private static final String WATT = "Watt";
 	private static final String AIRPORT = "Airport";
+	private static final String AIRPORT_TERMINAL = AIRPORT + " Term";
 	private static final String POLO_PARK = "Polo Pk";
-	private static final String PORTAGE_WEST = "Portage West";
+	private static final String PORTAGE_WEST = "Portage W";
 	private static final String INKSTER = "Inkster";
 	private static final String INKSTER_PARK = INKSTER + " Pk";
 	private static final String INKSTER_IND_PARK = INKSTER + " Ind Pk";
@@ -193,25 +172,25 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final String HENDERSON = "Henderson";
 	private static final String KILDONAN = "Kildonan";
 	private static final String KILDONAN_PL = KILDONAN + " Pl";
-	private static final String NORTH_TRANSCONA = "North Transcona";
+	private static final String NORTH_TRANSCONA = "N Transcona";
 	private static final String CROSSROADS_STN = "Crossroads Sta";
-	private static final String SOUTH_ST_VITAL = "South St Vital";
+	private static final String SOUTH_ST_VITAL = "S St Vital";
 	private static final String RIVERVIEW = "Riverview";
 	private static final String PATERSON_LOOP = "Paterson Loop";
 	private static final String ST_VITAL_CTR = "St Vital Ctr";
 	private static final String TRANSCONA = "Transcona";
-	private static final String SOUTH_TRANSCONA = "South " + TRANSCONA;
-	private static final String RICHMOND_WEST = "Richmond West";
+	private static final String SOUTH_TRANSCONA = "S " + TRANSCONA;
+	private static final String RICHMOND_WEST = "Richmond W";
 	private static final String WESTDALE = "Westdale";
 	private static final String BALMORAL_STA = "Balmoral Sta";
 	private static final String OAK_POINT = "Oak Pt";
-	private static final String MEADOWS_WEST = "Mdws West";
-	private static final String SOUTH_POINTE = "South Pte";
+	private static final String MEADOWS_WEST = "Mdws W";
+	private static final String SOUTH_POINTE = "S Pte";
 	private static final String ALDGATE = "Aldgate";
 	private static final String ISLAND_LAKES = "Isl Lks";
 	private static final String ST_NORBERT = "St Norbert";
 	private static final String ST_AMANT = "St Amant";
-	private static final String NORTH_KILDONAN = "North Kildonan";
+	private static final String NORTH_KILDONAN = "N Kildonan";
 	private static final String GLENWAY = "Glenway";
 	private static final String RIVERBEND = "Riverbend";
 	private static final String LEILA = "Leila";
@@ -221,45 +200,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	private static final String WOODHAVEN = "Woodhaven";
 	private static final String ROUGE = "Rouge";
 
-	private static final HashMap<Long, RouteTripSpec> ALL_ROUTE_TRIPS2;
-
-	static {
-		//noinspection UnnecessaryLocalVariable
-		HashMap<Long, RouteTripSpec> map2 = new HashMap<>();
-		ALL_ROUTE_TRIPS2 = map2;
-	}
-
-	@Override
-	public int compareEarly(long routeId, @NotNull List<MTripStop> list1, @NotNull List<MTripStop> list2, @NotNull MTripStop ts1, @NotNull MTripStop ts2, @NotNull GStop ts1GStop, @NotNull GStop ts2GStop) {
-		if (ALL_ROUTE_TRIPS2.containsKey(routeId)) {
-			return ALL_ROUTE_TRIPS2.get(routeId).compare(routeId, list1, list2, ts1, ts2, ts1GStop, ts2GStop, this);
-		}
-		return super.compareEarly(routeId, list1, list2, ts1, ts2, ts1GStop, ts2GStop);
-	}
-
-	@NotNull
-	@Override
-	public ArrayList<MTrip> splitTrip(@NotNull MRoute mRoute, @Nullable GTrip gTrip, @NotNull GSpec gtfs) {
-		if (ALL_ROUTE_TRIPS2.containsKey(mRoute.getId())) {
-			return ALL_ROUTE_TRIPS2.get(mRoute.getId()).getAllTrips();
-		}
-		return super.splitTrip(mRoute, gTrip, gtfs);
-	}
-
-	@NotNull
-	@Override
-	public Pair<Long[], Integer[]> splitTripStop(@NotNull MRoute mRoute, @NotNull GTrip gTrip, @NotNull GTripStop gTripStop, @NotNull ArrayList<MTrip> splitTrips, @NotNull GSpec routeGTFS) {
-		if (ALL_ROUTE_TRIPS2.containsKey(mRoute.getId())) {
-			return SplitUtils.splitTripStop(mRoute, gTrip, gTripStop, routeGTFS, ALL_ROUTE_TRIPS2.get(mRoute.getId()), this);
-		}
-		return super.splitTripStop(mRoute, gTrip, gTripStop, splitTrips, routeGTFS);
-	}
-
 	@Override
 	public void setTripHeadsign(@NotNull MRoute mRoute, @NotNull MTrip mTrip, @NotNull GTrip gTrip, @NotNull GSpec gtfs) {
-		if (ALL_ROUTE_TRIPS2.containsKey(mRoute.getId())) {
-			return; // split
-		}
 		// DO NOT CHANGE TRIP ID => USED FOR REAL-TIME
 		String gTripHeadsign = gTrip.getTripHeadsign();
 		gTripHeadsign = CleanUtils.keepToAndRemoveVia(gTripHeadsign);
@@ -420,9 +362,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					DOWNTOWN, // <>
 					"Memorial" + _AND_ + "Broadway", //
 					"Gdn City Ctr", //
-					MISERICORDIA //
+					MISERICORDIA_HEALTH_CENTER //
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(MISERICORDIA, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(MISERICORDIA_HEALTH_CENTER, mTrip.getHeadsignId());
 				return true;
 			}
 		} else if (mTrip.getRouteId() == 18L) {
@@ -475,9 +417,9 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 					DOWNTOWN, //
 					PORTAGE + _AND_ + "Tylehurst", //
 					"Redwood" + _AND_ + "Main", //
-					AIRPORT //
+					AIRPORT_TERMINAL //
 			).containsAll(headsignsValues)) {
-				mTrip.setHeadsignString(AIRPORT, mTrip.getHeadsignId());
+				mTrip.setHeadsignString(AIRPORT_TERMINAL, mTrip.getHeadsignId());
 				return true;
 			}
 			if (Arrays.asList( //
@@ -1072,32 +1014,16 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 		throw new MTLog.Fatal("Unexpected trip to merge %s & %s.", mTrip, mTripToMerge);
 	}
 
-	private static final Pattern POINT = Pattern.compile("((^|\\S)(\\.)(\\S|$))", Pattern.CASE_INSENSITIVE);
-	private static final String POINT_REPLACEMENT = "$2$3 $4";
-
-	private static final Pattern UNIVERSITY_OF = Pattern.compile("(university of )", Pattern.CASE_INSENSITIVE);
-	private static final String UNIVERSITY_OF_REPLACEMENT = UNIVERSITY_OF_SHORT;
-
-	private static final Pattern MISERICORDIA_HEALTH_CTR = Pattern.compile("(misericordia health centre)", Pattern.CASE_INSENSITIVE);
-	private static final String MISERICORDIA_HEALTH_CTR_REPLACEMENT = MISERICORDIA;
-
-	private static final Pattern AIRPORT_TERMINAL = Pattern.compile("(airport terminal)", Pattern.CASE_INSENSITIVE);
-	private static final String AIRPORT_TERMINAL_REPLACEMENT = AIRPORT;
-
-	private static final Pattern INKSTER_IND_PK = Pattern.compile("(inkster industrial park)", Pattern.CASE_INSENSITIVE);
-	private static final String INKSTER_IND_PK_REPLACEMENT = INKSTER_IND_PARK;
+	private static final Pattern FIX_POINT_SPACE_ = Pattern.compile("((^|\\S)(\\.)(\\S|$))", Pattern.CASE_INSENSITIVE);
+	private static final String FIX_POINT_SPACE_REPLACEMENT = "$2$3 $4"; // "st.abc" -> "st. abc"
 
 	@NotNull
 	@Override
 	public String cleanTripHeadsign(@NotNull String tripHeadsign) {
 		tripHeadsign = CleanUtils.CLEAN_AND.matcher(tripHeadsign).replaceAll(CleanUtils.CLEAN_AND_REPLACEMENT);
-		tripHeadsign = POINT.matcher(tripHeadsign).replaceAll(POINT_REPLACEMENT);
-		tripHeadsign = UNIVERSITY_OF.matcher(tripHeadsign).replaceAll(UNIVERSITY_OF_REPLACEMENT);
-		tripHeadsign = MISERICORDIA_HEALTH_CTR.matcher(tripHeadsign).replaceAll(MISERICORDIA_HEALTH_CTR_REPLACEMENT);
-		tripHeadsign = AIRPORT_TERMINAL.matcher(tripHeadsign).replaceAll(AIRPORT_TERMINAL_REPLACEMENT);
-		tripHeadsign = INKSTER_IND_PK.matcher(tripHeadsign).replaceAll(INKSTER_IND_PK_REPLACEMENT);
+		tripHeadsign = FIX_POINT_SPACE_.matcher(tripHeadsign).replaceAll(FIX_POINT_SPACE_REPLACEMENT);
+		tripHeadsign = CleanUtils.cleanBounds(tripHeadsign);
 		tripHeadsign = CleanUtils.cleanStreetTypes(tripHeadsign);
-		tripHeadsign = CleanUtils.removePoints(tripHeadsign);
 		tripHeadsign = CleanUtils.cleanNumbers(tripHeadsign);
 		return CleanUtils.cleanLabel(tripHeadsign);
 	}
@@ -1105,11 +1031,11 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	@NotNull
 	@Override
 	public String cleanStopName(@NotNull String gStopName) {
-		gStopName = POINT.matcher(gStopName).replaceAll(POINT_REPLACEMENT);
+		gStopName = FIX_POINT_SPACE_.matcher(gStopName).replaceAll(FIX_POINT_SPACE_REPLACEMENT);
 		gStopName = CleanUtils.cleanBounds(gStopName);
+		gStopName = CleanUtils.CLEAN_AND.matcher(gStopName).replaceAll(CleanUtils.CLEAN_AND_REPLACEMENT);
 		gStopName = CleanUtils.CLEAN_AT.matcher(gStopName).replaceAll(CleanUtils.CLEAN_AT_REPLACEMENT);
 		gStopName = CleanUtils.cleanStreetTypes(gStopName);
-		gStopName = CleanUtils.removePoints(gStopName);
 		gStopName = CleanUtils.cleanNumbers(gStopName);
 		return CleanUtils.cleanLabel(gStopName);
 	}
