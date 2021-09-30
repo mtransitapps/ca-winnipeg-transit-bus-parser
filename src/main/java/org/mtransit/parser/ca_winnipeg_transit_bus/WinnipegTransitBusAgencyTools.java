@@ -1,80 +1,43 @@
 package org.mtransit.parser.ca_winnipeg_transit_bus;
 
+import static org.mtransit.commons.StringUtils.EMPTY;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mtransit.parser.CleanUtils;
+import org.mtransit.commons.CharUtils;
+import org.mtransit.commons.CleanUtils;
+import org.mtransit.commons.provider.WinnipegTransitProviderCommons;
 import org.mtransit.parser.DefaultAgencyTools;
-import org.mtransit.parser.MTLog;
-import org.mtransit.parser.StringUtils;
-import org.mtransit.parser.Utils;
-import org.mtransit.parser.gtfs.data.GCalendar;
-import org.mtransit.parser.gtfs.data.GCalendarDate;
-import org.mtransit.parser.gtfs.data.GRoute;
-import org.mtransit.parser.gtfs.data.GSpec;
 import org.mtransit.parser.gtfs.data.GStop;
-import org.mtransit.parser.gtfs.data.GTrip;
 import org.mtransit.parser.mt.data.MAgency;
-import org.mtransit.parser.mt.data.MRoute;
-import org.mtransit.parser.mt.data.MTrip;
 
-import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
-
-import static org.mtransit.parser.StringUtils.EMPTY;
 
 // http://winnipegtransit.com/en/schedules-maps-tools/transittools/open-data/
 // http://gtfs.winnipegtransit.com/google_transit.zip
 public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
-	public static void main(@Nullable String[] args) {
-		if (args == null || args.length == 0) {
-			args = new String[3];
-			args[0] = "input/gtfs.zip";
-			args[1] = "../../mtransitapps/ca-winnipeg-transit-bus-android/res/raw/";
-			args[2] = ""; // files-prefix
-		}
+	public static void main(@NotNull String[] args) {
 		new WinnipegTransitBusAgencyTools().start(args);
 	}
 
 	@Nullable
-	private HashSet<Integer> serviceIdInts;
-
 	@Override
-	public void start(@NotNull String[] args) {
-		MTLog.log("Generating Winnipeg Transit bus data...");
-		long start = System.currentTimeMillis();
-		this.serviceIdInts = extractUsefulServiceIdInts(args, this, true);
-		super.start(args);
-		MTLog.log("Generating Winnipeg Transit bus data... DONE in %s.", Utils.getPrettyDuration(System.currentTimeMillis() - start));
+	public List<Locale> getSupportedLanguages() {
+		return LANG_EN;
 	}
 
 	@Override
-	public boolean excludingAll() {
-		return this.serviceIdInts != null && this.serviceIdInts.isEmpty();
+	public boolean defaultExcludeEnabled() {
+		return true;
 	}
 
+	@NotNull
 	@Override
-	public boolean excludeCalendar(@NotNull GCalendar gCalendar) {
-		if (this.serviceIdInts != null) {
-			return excludeUselessCalendarInt(gCalendar, this.serviceIdInts);
-		}
-		return super.excludeCalendar(gCalendar);
-	}
-
-	@Override
-	public boolean excludeCalendarDate(@NotNull GCalendarDate gCalendarDates) {
-		if (this.serviceIdInts != null) {
-			return excludeUselessCalendarDateInt(gCalendarDates, this.serviceIdInts);
-		}
-		return super.excludeCalendarDate(gCalendarDates);
-	}
-
-	@Override
-	public boolean excludeTrip(@NotNull GTrip gTrip) {
-		if (this.serviceIdInts != null) {
-			return excludeUselessTripInt(gTrip, this.serviceIdInts);
-		}
-		return super.excludeTrip(gTrip);
+	public String getAgencyName() {
+		return "Winnipeg Transit";
 	}
 
 	@NotNull
@@ -84,46 +47,42 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	}
 
 	@Override
-	public long getRouteId(@NotNull GRoute gRoute) {
-		//noinspection deprecation
-		final String routeId = gRoute.getRouteId();
-		if (!Utils.isDigitsOnly(routeId)) {
-			if ("BLUE".equalsIgnoreCase(gRoute.getRouteShortName())) {
-				return 22_222L;
-			}
-			return Long.parseLong(gRoute.getRouteShortName()); // use route short name as route ID
-		}
-		return super.getRouteId(gRoute);
+	public boolean defaultRouteIdEnabled() {
+		return true;
+	}
+
+	@Override
+	public boolean useRouteShortNameForRouteId() {
+		return true;
 	}
 
 	@Nullable
 	@Override
-	public String getRouteShortName(@NotNull GRoute gRoute) {
-		return super.getRouteShortName(gRoute); // used for Real-Time API
+	public Long convertRouteIdFromShortNameNotSupported(@NotNull String routeShortName) {
+		switch (routeShortName) {
+		case "BLUE":
+			return 22_222L;
+		}
+		return super.convertRouteIdFromShortNameNotSupported(routeShortName);
 	}
+
+	@Override
+	public boolean defaultRouteLongNameEnabled() {
+		return true;
+	}
+
+	private static final Pattern BLUE_ = Pattern.compile("(^blue$)", Pattern.CASE_INSENSITIVE);
 
 	@NotNull
 	@Override
-	public String getRouteLongName(@NotNull GRoute gRoute) {
-		if (StringUtils.isEmpty(gRoute.getRouteLongName())) {
-			if ("BLUE".equalsIgnoreCase(gRoute.getRouteShortName())) {
-				return EMPTY;
-			}
-			//noinspection deprecation
-			final String routeId1 = gRoute.getRouteId();
-			int routeId = Integer.parseInt(routeId1);
-			switch (routeId) {
-			case 72:
-				return "U Of " + " Manitoba" + " - " + "Richmond W";
-			case 76:
-				return "U Of " + " Manitoba" + " - " + "St Vital Ctr";
-			case 84:
-			case 86:
-				return "Whyte Rdg";
-			}
-			throw new MTLog.Fatal("Unexpected route long name %s!", gRoute);
-		}
-		return cleanTripHeadsign(gRoute.getRouteLongNameOrDefault()); // used in real-time API
+	public String cleanRouteLongName(@NotNull String routeLongName) {
+		routeLongName = BLUE_.matcher(routeLongName).replaceAll(EMPTY);
+		return cleanTripHeadsign(routeLongName); // used in real-time API
+	}
+
+	@Override
+	public boolean defaultAgencyColorEnabled() {
+		return false; // agency color is BLUE BUT most route colors are WHITE.
 	}
 
 	private static final String AGENCY_COLOR_BLUE = "3256A3"; // BLUE (from PDF map logo)
@@ -136,21 +95,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	}
 
 	@Override
-	public void setTripHeadsign(@NotNull MRoute mRoute, @NotNull MTrip mTrip, @NotNull GTrip gTrip, @NotNull GSpec gtfs) {
-		mTrip.setHeadsignString(
-				cleanTripHeadsign(gTrip.getTripHeadsignOrDefault()),
-				gTrip.getDirectionIdOrDefault() // DO NOT CHANGE TRIP ID => USED FOR REAL-TIME API
-		);
-	}
-
-	@Override
 	public boolean directionFinderEnabled() {
 		return true;
-	}
-
-	@Override
-	public boolean mergeHeadsign(@NotNull MTrip mTrip, @NotNull MTrip mTripToMerge) {
-		throw new MTLog.Fatal("Unexpected trip to merge %s & %s.", mTrip, mTripToMerge);
 	}
 
 	private static final Pattern FIX_POINT_SPACE_ = Pattern.compile("((^|\\S)(\\.)(\\S|$))", Pattern.CASE_INSENSITIVE);
@@ -158,14 +104,8 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
 	@NotNull
 	@Override
-	public String cleanTripHeadsign(@NotNull String tripHeadsign) { // keep in sync with Real-Tine API
-		tripHeadsign = CleanUtils.CLEAN_AND.matcher(tripHeadsign).replaceAll(CleanUtils.CLEAN_AND_REPLACEMENT);
-		tripHeadsign = FIX_POINT_SPACE_.matcher(tripHeadsign).replaceAll(FIX_POINT_SPACE_REPLACEMENT);
-		tripHeadsign = CleanUtils.keepToAndRemoveVia(tripHeadsign);
-		tripHeadsign = CleanUtils.cleanBounds(tripHeadsign);
-		tripHeadsign = CleanUtils.cleanStreetTypes(tripHeadsign);
-		tripHeadsign = CleanUtils.cleanNumbers(tripHeadsign);
-		return CleanUtils.cleanLabel(tripHeadsign);
+	public String cleanTripHeadsign(@NotNull String tripHeadsign) {
+		return WinnipegTransitProviderCommons.cleanTripHeadsign(tripHeadsign);
 	}
 
 	@NotNull
@@ -184,7 +124,7 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	public int getStopId(@NotNull GStop gStop) {
 		//noinspection deprecation
 		final String stopId = gStop.getStopId();
-		if (!Utils.isDigitsOnly(stopId)) {
+		if (!CharUtils.isDigitsOnly(stopId)) {
 			return Integer.parseInt(gStop.getStopCode()); // use stop code as stop ID
 		}
 		return super.getStopId(gStop);
