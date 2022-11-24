@@ -8,6 +8,7 @@ import org.mtransit.commons.CharUtils;
 import org.mtransit.commons.CleanUtils;
 import org.mtransit.commons.provider.WinnipegTransitProviderCommons;
 import org.mtransit.parser.DefaultAgencyTools;
+import org.mtransit.parser.gtfs.data.GRoute;
 import org.mtransit.parser.gtfs.data.GStop;
 import org.mtransit.parser.mt.data.MAgency;
 
@@ -16,7 +17,6 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 // http://winnipegtransit.com/en/schedules-maps-tools/transittools/open-data/
-// http://gtfs.winnipegtransit.com/google_transit.zip
 public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 
 	public static void main(@NotNull String[] args) {
@@ -54,6 +54,18 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	@Override
 	public boolean useRouteShortNameForRouteId() {
 		return true;
+	}
+
+	@NotNull
+	@Override
+	public String getRouteShortName(@NotNull GRoute gRoute) {
+		return super.getRouteShortName(gRoute); // used for Real-Time API
+	}
+
+	@NotNull
+	@Override
+	public String cleanRouteShortName(@NotNull String routeShortName) {
+		return super.cleanRouteShortName(routeShortName); // used for Real-Time API
 	}
 
 	@Nullable
@@ -97,6 +109,11 @@ public class WinnipegTransitBusAgencyTools extends DefaultAgencyTools {
 	@Override
 	public boolean directionFinderEnabled() {
 		return true;
+	}
+
+	@Override
+	public boolean directionSplitterEnabled(long routeId) {
+		return false; // used for Real-Time API
 	}
 
 	private static final Pattern FIX_POINT_SPACE_ = Pattern.compile("((^|\\S)(\\.)(\\S|$))", Pattern.CASE_INSENSITIVE);
